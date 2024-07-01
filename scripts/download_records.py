@@ -111,11 +111,11 @@ async def main():
         config = {}
 
     async with aiohttp.ClientSession() as session:
-        if not "version" in config:
-            print("Querying version")
-            async with session.get("https://game.maj-soul.com/1/version.json") as res:
-                version = await res.json()
-            version = version["version"]
+        print("Querying version")
+        async with session.get("https://game.maj-soul.com/1/version.json") as res:
+            version = await res.json()
+        version = version["version"]
+        if not "version" in config or config["version"] != version:            
             config["version"] = version
             print("Got version {}".format(version))
         else:
